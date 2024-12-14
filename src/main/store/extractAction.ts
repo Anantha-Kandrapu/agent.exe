@@ -1,4 +1,7 @@
-import { BetaMessageParam } from '@anthropic-ai/sdk/resources/beta/messages/messages';
+import {
+  BetaContentBlockParam,
+  BetaMessageParam,
+} from '@anthropic-ai/sdk/resources/beta/messages/messages';
 import { NextAction } from './types';
 
 export const extractAction = (
@@ -8,7 +11,7 @@ export const extractAction = (
   reasoning: string;
   toolId: string;
 } => {
-  const reasoning = message.content
+  const reasoning = (message.content as BetaContentBlockParam[])
     .filter((content) => content.type === 'text')
     .map((content) => content.text)
     .join(' ');
